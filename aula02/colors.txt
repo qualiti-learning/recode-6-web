@@ -1,0 +1,7 @@
+textual = black, white, green, pink;
+hexadecimal = #111 #222 #333 #444 #555 #666 #777 #888 #999 #999999 #999ddd #999fff;
+rgb = rgb(300, 100, 300) , rgb(0, 0, 0)
+
+R -> Red
+G -> Green
+B -> Blue

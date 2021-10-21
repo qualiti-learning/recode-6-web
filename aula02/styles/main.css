@@ -1,0 +1,37 @@
+h1,
+h2,
+h3 {
+  color: firebrick !important;
+  font-weight: bold;
+}
+
+#manchete {
+  color: blue !important;
+  font-size: 50px;
+}
+
+h1.titulo {
+  margin-left: 20px;
+  margin-bottom: 50px;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.green {
+  color: green !important;
+}
+
+button {
+  background-color: rgb(100, 200, 300);
+  color: #fff;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: black;
+  font-size: 18px;
+}
