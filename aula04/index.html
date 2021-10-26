@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Github Profile</title>
+    <link href="../aula02/styles/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Github Profile</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Pricing</a>
+            <a class="nav-link disabled">Disabled</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <main class="container mt-4">
+      <img
+        width="256px"
+        height="256px"
+        class="border border-2 rounded-circle"
+      />
+
+      <div class="mt-4">
+        <h3 id="name"></h3>
+        <span id="username" class="text-secondary"></span>
+        <p id="bio"></p>
+      </div>
+
+      <div>
+        <span class="fw-bold" id="followers"></span> followers ·
+        <span class="fw-bold" id="following"></span> following ·
+        <span class="fw-bold" id="stars"></span>
+      </div>
+
+      <div class="d-flex flex-column mt-3">
+        <span class="fw-bold" id="company"></span>
+        <span id="city"></span>
+        <span id="email"></span>
+      </div>
+    </main>
+    <script src="index.js"></script>
+  </body>
+</html>
