@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles/bootstrap.min.css" />
     <link rel="stylesheet" href="../styles/main.css" />
+    <script src="../js/bootstrap.min.js"></script>
+
     <title>Professor Allocation</title>
   </head>
   <body>
@@ -49,6 +51,107 @@
       </nav>
     </header>
 
-    <main class="container mt-4">Professor...</main>
+    <main class="container mt-4">
+      <div class="card">
+        <div class="card-header">Professor</div>
+        <div class="card-body">
+          <div class="mb-4">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              Create Professor
+            </button>
+          </div>
+
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>CPF</th>
+                <th>Name</th>
+                <th>Department</th>
+              </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+          </table>
+
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Create Professor
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <form>
+                  <div class="modal-body">
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Name</label>
+
+                      <input
+                        required
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        placeholder="Insert your full name"
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="cpf" class="form-label">CPF</label>
+                      <input type="text" class="form-control" id="cpf" />
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="department" class="form-label"
+                        >Department</label
+                      >
+                      <select type="text" class="form-control" id="department">
+                        <option>Department A</option>
+                        <option>Department B</option>
+                        <option>Department C</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      class="btn btn-primary"
+                      type="submit"
+                      onclick="createProfessor()"
+                    >
+                      Save changes
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="index.js"></script>
   </body>
 </html>
