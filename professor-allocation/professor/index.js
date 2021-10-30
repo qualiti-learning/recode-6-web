@@ -1,10 +1,72 @@
 const tableBody = document.getElementById("table-body");
 
-function createProfessor() {
-  console.log("Professor criado");
+async function createProfessor(event) {
+  event.preventDefault();
+
+  const professorModal = document.getElementById("professorModal");
+  const modal = bootstrap.Modal.getInstance(professorModal);
+
+  const name = document.getElementById("name");
+  const cpf = document.getElementById("cpf");
+  const department = document.getElementById("department");
+
+  const professor = {
+    name: name.value,
+    cpf: cpf.value,
+    departmentId: department.value,
+  };
+
+  const response = await fetch(
+    "https://professor-allocation.herokuapp.com/professors",
+    {
+      method: "POST",
+      body: JSON.stringify(professor),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (response.ok) {
+    await getProfessors();
+
+    modal.hide();
+  } else {
+    const modalAlert = document.getElementById("modal-alert");
+
+    modalAlert.classList.remove("d-none");
+    modalAlert.innerText = "CPF já existe.";
+  }
 }
 
-function setTableBody(professors = []) {
+async function removeProfessor(professorId) {
+  const response = await fetch(
+    `https://professor-allocation.herokuapp.com/professors/${professorId}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  if (response.ok) {
+    await getProfessors();
+  } else {
+    alert("Oops... Error to delete Professor.");
+  }
+}
+
+function setDepartmentOptionList(departments = []) {
+  const department = document.getElementById("department");
+
+  let body = "";
+
+  departments.forEach(function (department) {
+    body += `<option value="${department.id}">${department.name}</option>`;
+  });
+
+  department.innerHTML = body;
+}
+
+function setProfessorTableBody(professors = []) {
   let body = "";
 
   professors.forEach(function (professor) {
@@ -22,7 +84,7 @@ function setTableBody(professors = []) {
           
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink-${professor.id}">
               <li><a class="dropdown-item" href="#">Edit</a></li>
-              <li><a class="dropdown-item" href="#">Remove</a></li>
+              <li onclick="removeProfessor(${professor.id})"><a class="dropdown-item">Remove</a></li>
             </ul>
           </div> </td>
         </tr>
@@ -39,7 +101,18 @@ async function getProfessors() {
 
   const data = await response.json();
 
-  setTableBody(data);
+  setProfessorTableBody(data);
+}
+
+async function getDepartments() {
+  const response = await fetch(
+    "https://professor-allocation.herokuapp.com/departments"
+  );
+
+  const data = await response.json();
+
+  setDepartmentOptionList(data);
 }
 
 getProfessors();
+getDepartments();

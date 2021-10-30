@@ -60,7 +60,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
+              data-bs-target="#professorModal"
             >
               Create Professor
             </button>
@@ -81,15 +81,15 @@
           <!-- Modal -->
           <div
             class="modal fade"
-            id="exampleModal"
+            id="professorModal"
             tabindex="-1"
-            aria-labelledby="exampleModalLabel"
+            aria-labelledby="professorModalLabel"
             aria-hidden="true"
           >
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">
+                  <h5 class="modal-title" id="professorModalLabel">
                     Create Professor
                   </h5>
                   <button
@@ -99,6 +99,10 @@
                     aria-label="Close"
                   ></button>
                 </div>
+                <div
+                  id="modal-alert"
+                  class="d-none alert alert-danger mx-3 mt-3"
+                ></div>
                 <form>
                   <div class="modal-body">
                     <div class="mb-3">
@@ -122,11 +126,11 @@
                       <label for="department" class="form-label"
                         >Department</label
                       >
-                      <select type="text" class="form-control" id="department">
-                        <option>Department A</option>
-                        <option>Department B</option>
-                        <option>Department C</option>
-                      </select>
+                      <select
+                        type="text"
+                        class="form-control"
+                        id="department"
+                      ></select>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -140,7 +144,7 @@
                     <button
                       class="btn btn-primary"
                       type="submit"
-                      onclick="createProfessor()"
+                      onclick="createProfessor(event)"
                     >
                       Save changes
                     </button>
