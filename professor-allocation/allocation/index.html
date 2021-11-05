@@ -29,14 +29,14 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/professor-allocation/allocation/"
+                <a
+                  class="nav-link active"
+                  href="/professor-allocation/allocation/"
                   >Allocation</a
                 >
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  href="/professor-allocation/professor"
+                <a class="nav-link" href="/professor-allocation/professor"
                   >Professor</a
                 >
               </li>
@@ -58,15 +58,15 @@
 
     <main class="container mt-4">
       <div class="card">
-        <div class="card-header">Professor</div>
+        <div class="card-header">Allocation</div>
         <div class="card-body">
           <div class="mb-4">
             <button
               class="btn btn-secondary"
               type="button"
-              onclick="openModal('Create Professor')"
+              onclick="openModal('Create Allocation')"
             >
-              Create Professor
+              Create Allocation
             </button>
           </div>
 
@@ -74,28 +74,24 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>CPF</th>
-                <th>Name</th>
+                <th>Day of Week</th>
+                <th>Start Hour</th>
+                <th>End Hour</th>
+                <th>Professor</th>
                 <th>Department</th>
+                <th>Course</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody id="table-body"></tbody>
           </table>
 
           <!-- Modal -->
-          <div
-            class="modal fade"
-            id="professorModal"
-            tabindex="-1"
-            aria-labelledby="professorModalLabel"
-            aria-hidden="true"
-          >
+          <div class="modal fade" id="modal" tabindex="-1">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="professorModalLabel">
-                    Create Professor
-                  </h5>
+                  <h5 class="modal-title">Create Professor</h5>
                   <button
                     type="button"
                     class="btn-close"
@@ -112,30 +108,46 @@
 
                   <div class="modal-body">
                     <div class="mb-3">
-                      <label for="name" class="form-label">Name</label>
+                      <label for="name" class="form-label">Day Of Week</label>
 
-                      <input
-                        required
-                        type="text"
-                        class="form-control"
-                        id="name"
-                        placeholder="Insert your full name"
-                      />
+                      <select class="form-control" id="dayOfWeek">
+                        <option value="SUNDAY">Sunday</option>
+                        <option value="MONDAY">Monday</option>
+                        <option value="TUESDAY">Tuesdays</option>
+                        <option value="WEDNESDAY">Wednesday</option>
+                        <option value="THURSDAY">Thursday</option>
+                        <option value="FRIDAY">Friday</option>
+                        <option value="SATURDAY">Saturday</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label">Start Hour</label>
+                      <input id="startHour" type="time" class="form-control" />
+                    </div>
+
+                    <div class="form-group mb-3">
+                      <label class="form-label">End Hour</label>
+                      <input id="endHour" type="time" class="form-control" />
                     </div>
 
                     <div class="mb-3">
-                      <label for="cpf" class="form-label">CPF</label>
-                      <input type="text" class="form-control" id="cpf" />
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="department" class="form-label"
-                        >Department</label
+                      <label for="professor" class="form-label"
+                        >Professor</label
                       >
                       <select
                         type="text"
                         class="form-control"
-                        id="department"
+                        id="professor"
+                      ></select>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="course" class="form-label">Course</label>
+                      <select
+                        type="text"
+                        class="form-control"
+                        id="course"
                       ></select>
                     </div>
                   </div>
@@ -150,7 +162,7 @@
                     <button
                       class="btn btn-primary"
                       type="submit"
-                      onclick="saveProfessor(event)"
+                      onclick="saveChanges(event)"
                     >
                       Save changes
                     </button>

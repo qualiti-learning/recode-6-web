@@ -1,14 +1,16 @@
+const baseURL = "https://professor-allocation.herokuapp.com";
 const tableBody = document.getElementById("table-body");
 
-async function createProfessor(event) {
+const cpf = document.getElementById("cpf");
+const department = document.getElementById("department");
+const name = document.getElementById("name");
+const primaryKey = document.getElementById("primary-key");
+
+async function saveProfessor(event) {
   event.preventDefault();
 
   const professorModal = document.getElementById("professorModal");
   const modal = bootstrap.Modal.getInstance(professorModal);
-
-  const name = document.getElementById("name");
-  const cpf = document.getElementById("cpf");
-  const department = document.getElementById("department");
 
   const professor = {
     name: name.value,
@@ -16,16 +18,24 @@ async function createProfessor(event) {
     departmentId: department.value,
   };
 
-  const response = await fetch(
-    "https://professor-allocation.herokuapp.com/professors",
-    {
-      method: "POST",
-      body: JSON.stringify(professor),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  let response;
+
+  const options = {
+    body: JSON.stringify(professor),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+  };
+
+  if (primaryKey.value) {
+    response = await fetch(`${baseURL}/professors/${primaryKey.value}`, {
+      ...options,
+      method: "PUT",
+    });
+  } else {
+    response = await fetch(`${baseURL}/professors`, options);
+  }
 
   if (response.ok) {
     await getProfessors();
@@ -39,13 +49,34 @@ async function createProfessor(event) {
   }
 }
 
+function openModal(title) {
+  const modal = new bootstrap.Modal(document.getElementById("professorModal"));
+
+  document.querySelector("h5.modal-title").innerHTML = title;
+
+  primaryKey.value = "";
+
+  modal.show();
+}
+
+async function openModalEditProfessor(professorId) {
+  openModal("Update Professor");
+
+  primaryKey.value = professorId;
+
+  const response = await fetch(`${baseURL}/professors/${professorId}`);
+
+  const data = await response.json();
+
+  name.value = data.name;
+  cpf.value = data.cpf;
+  department.value = data.department.id;
+}
+
 async function removeProfessor(professorId) {
-  const response = await fetch(
-    `https://professor-allocation.herokuapp.com/professors/${professorId}`,
-    {
-      method: "DELETE",
-    }
-  );
+  const response = await fetch(`${baseURL}/professors/${professorId}`, {
+    method: "DELETE",
+  });
 
   if (response.ok) {
     await getProfessors();
@@ -83,7 +114,7 @@ function setProfessorTableBody(professors = []) {
             </a>
           
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink-${professor.id}">
-              <li><a class="dropdown-item" href="#">Edit</a></li>
+              <li onclick="openModalEditProfessor(${professor.id})"><a class="dropdown-item" href="#">Edit</a></li>
               <li onclick="removeProfessor(${professor.id})"><a class="dropdown-item">Remove</a></li>
             </ul>
           </div> </td>
@@ -95,9 +126,7 @@ function setProfessorTableBody(professors = []) {
 }
 
 async function getProfessors() {
-  const response = await fetch(
-    "https://professor-allocation.herokuapp.com/professors"
-  );
+  const response = await fetch(`${baseURL}/professors`);
 
   const data = await response.json();
 
@@ -105,9 +134,7 @@ async function getProfessors() {
 }
 
 async function getDepartments() {
-  const response = await fetch(
-    "https://professor-allocation.herokuapp.com/departments"
-  );
+  const response = await fetch(`${baseURL}/departments`);
 
   const data = await response.json();
 
